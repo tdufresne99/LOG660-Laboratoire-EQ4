@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="src2">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/MigrationDonnees/output/production/lecture/src/xmlpull_1_1_3_4c.jar!/" />
+      <root url="jar://$PROJECT_DIR$/MigrationDonnees/output/production/lecture/src/xpp3-1.1.3.4.C.jar!/" />
+      <root url="jar://$PROJECT_DIR$/MigrationDonnees/output/production/lecture/src/ojdbc17.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

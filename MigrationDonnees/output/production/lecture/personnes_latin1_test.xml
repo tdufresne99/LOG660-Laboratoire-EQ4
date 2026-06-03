@@ -1,0 +1,29 @@
+<personnes>
+	<personne id="409">
+		<nom>Brendan Fraser</nom>
+		<naissance>
+			<anniversaire>1968-12-03</anniversaire>
+			<lieu>Indianapolis, Indiana, USA</lieu>
+		</naissance>
+		<photo>http://ia.media-imdb.com/images/M/MV5BMTIwMDYz_test1.jpg</photo>
+		<bio>Acteur américano-canadien connu pour son rôle principal dans George de la jungle et sa performance oscarisée dans The Whale.</bio>
+	</personne>
+	<personne id="1001">
+		<nom>James Caan</nom>
+		<naissance>
+			<anniversaire>1940-03-26</anniversaire>
+			<lieu>The Bronx, New York, USA</lieu>
+		</naissance>
+		<photo>http://ia.media-imdb.com/images/M/MV5BMTIwMDYz_test2.jpg</photo>
+		<bio>Acteur américain emblématique connu pour avoir incarné Sonny Corleone dans Le Parrain.</bio>
+	</personne>
+	<personne id="918873">
+		<nom>Sam Weisman</nom>
+		<naissance>
+			<anniversaire>1947-05-13</anniversaire>
+			<lieu>Binghamton, New York, USA</lieu>
+		</naissance>
+		<photo>http://ia.media-imdb.com/images/M/MV5BMTIwMDYz_test3.jpg</photo>
+		<bio>Réalisateur américain chevronné ayant dirigé plusieurs comédies hollywoodiennes dans les années 90.</bio>
+	</personne>
+</personnes>
