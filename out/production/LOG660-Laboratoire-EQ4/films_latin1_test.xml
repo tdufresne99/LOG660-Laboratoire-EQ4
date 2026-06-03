@@ -1,0 +1,27 @@
+<films>
+	<film id="119190">
+		<titre>George of the Jungle</titre>
+		<annee>1997</annee>
+		<pays>USA</pays>
+		<langue>English</langue>
+		<duree>92</duree>
+		<resume>George grows up in the jungle raised by apes. Based on the Cartoon series.</resume>
+		<genre>Action</genre>
+		<genre>Adventure</genre>
+		<genre>Comedy</genre>
+		<genre>Family</genre>
+		<realisateur id="918873">Sam Weisman</realisateur>
+		<scenariste>Jay Ward</scenariste>
+		<scenariste>Dana Olsen</scenariste>
+		<role>
+			<acteur id="409">Brendan Fraser</acteur>
+			<personnage>George of the Jungle</personnage>
+		</role>
+		<role>
+			<acteur id="1001">James Caan</acteur>
+			<personnage>Walter</personnage>
+		</role>
+		<poster>http://images.com/george_poster.jpg</poster>
+		<annonce>http://youtube.com/george_trailer</annonce>
+	</film>
+</films>
