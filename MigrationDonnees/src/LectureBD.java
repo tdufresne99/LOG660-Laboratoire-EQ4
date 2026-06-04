@@ -57,13 +57,13 @@ public class LectureBD {
       protected String nom;
       protected String personnage;
    }
-   
+
    public LectureBD() {
-      connectionBD();                     
+      connectionBD();
    }
-   
-   
-   public void lecturePersonnes(String nomFichier){      
+
+
+   public void lecturePersonnes(String nomFichier){
       try {
          XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
          XmlPullParser parser = factory.newPullParser();
@@ -73,32 +73,32 @@ public class LectureBD {
 
          int eventType = parser.getEventType();
 
-         String tag = null, 
-                nom = null,
-                anniversaire = null,
-                lieu = null,
-                photo = null,
-                bio = null;
-         
+         String tag = null,
+                 nom = null,
+                 anniversaire = null,
+                 lieu = null,
+                 photo = null,
+                 bio = null;
+
          int id = -1;
-         
-         while (eventType != XmlPullParser.END_DOCUMENT) 
+
+         while (eventType != XmlPullParser.END_DOCUMENT)
          {
-            if(eventType == XmlPullParser.START_TAG) 
+            if(eventType == XmlPullParser.START_TAG)
             {
                tag = parser.getName();
-               
+
                if (tag.equals("personne") && parser.getAttributeCount() == 1)
                   id = Integer.parseInt(parser.getAttributeValue(0));
-            } 
-            else if (eventType == XmlPullParser.END_TAG) 
-            {                              
+            }
+            else if (eventType == XmlPullParser.END_TAG)
+            {
                tag = null;
-               
+
                if (parser.getName().equals("personne") && id >= 0)
                {
                   insertionPersonne(id,nom,anniversaire,lieu,photo,bio);
-                                    
+
                   id = -1;
                   nom = null;
                   anniversaire = null;
@@ -107,10 +107,10 @@ public class LectureBD {
                   bio = null;
                }
             }
-            else if (eventType == XmlPullParser.TEXT && id >= 0) 
+            else if (eventType == XmlPullParser.TEXT && id >= 0)
             {
                if (tag != null)
-               {                                    
+               {
                   if (tag.equals("nom"))
                      nom = parser.getText();
                   else if (tag.equals("anniversaire"))
@@ -121,20 +121,20 @@ public class LectureBD {
                      photo = parser.getText();
                   else if (tag.equals("bio"))
                      bio = parser.getText();
-               }              
+               }
             }
-            
-            eventType = parser.next();            
+
+            eventType = parser.next();
          }
       }
       catch (XmlPullParserException e) {
-          System.out.println(e);   
-       }
-       catch (IOException e) {
-         System.out.println("IOException while parsing " + nomFichier); 
-       }
-   }   
-   
+         System.out.println(e);
+      }
+      catch (IOException e) {
+         System.out.println("IOException while parsing " + nomFichier);
+      }
+   }
+
    public void lectureFilms(String nomFichier){
       try {
          XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
@@ -145,56 +145,56 @@ public class LectureBD {
 
          int eventType = parser.getEventType();
 
-         String tag = null, 
-                titre = null,
-                langue = null,
-                poster = null,
-                roleNom = null,
-                rolePersonnage = null,
-                realisateurNom = null,
-                resume = null;
-         
+         String tag = null,
+                 titre = null,
+                 langue = null,
+                 poster = null,
+                 roleNom = null,
+                 rolePersonnage = null,
+                 realisateurNom = null,
+                 resume = null;
+
          ArrayList<String> pays = new ArrayList<String>();
          ArrayList<String> genres = new ArrayList<String>();
          ArrayList<String> scenaristes = new ArrayList<String>();
-         ArrayList<Role> roles = new ArrayList<Role>();         
+         ArrayList<Role> roles = new ArrayList<Role>();
          ArrayList<String> annonces = new ArrayList<String>();
-         
+
          int id = -1,
-             annee = -1,
-             duree = -1,
-             roleId = -1,
-             realisateurId = -1;
-         
-         while (eventType != XmlPullParser.END_DOCUMENT) 
+                 annee = -1,
+                 duree = -1,
+                 roleId = -1,
+                 realisateurId = -1;
+
+         while (eventType != XmlPullParser.END_DOCUMENT)
          {
-            if(eventType == XmlPullParser.START_TAG) 
+            if(eventType == XmlPullParser.START_TAG)
             {
                tag = parser.getName();
-               
+
                if (tag.equals("film") && parser.getAttributeCount() == 1)
                   id = Integer.parseInt(parser.getAttributeValue(0));
                else if (tag.equals("realisateur") && parser.getAttributeCount() == 1)
                   realisateurId = Integer.parseInt(parser.getAttributeValue(0));
                else if (tag.equals("acteur") && parser.getAttributeCount() == 1)
                   roleId = Integer.parseInt(parser.getAttributeValue(0));
-            } 
-            else if (eventType == XmlPullParser.END_TAG) 
-            {                              
+            }
+            else if (eventType == XmlPullParser.END_TAG)
+            {
                tag = null;
-               
+
                if (parser.getName().equals("film") && id >= 0)
                {
                   insertionFilm(id,titre,annee,pays,langue,
-                             duree,resume,genres,realisateurNom,
-                             realisateurId, scenaristes,
-                             roles,poster,annonces);
-                                    
+                          duree,resume,genres,realisateurNom,
+                          realisateurId, scenaristes,
+                          roles,poster,annonces);
+
                   id = -1;
                   annee = -1;
                   duree = -1;
-                  titre = null;                                 
-                  langue = null;                  
+                  titre = null;
+                  langue = null;
                   poster = null;
                   resume = null;
                   realisateurNom = null;
@@ -202,25 +202,25 @@ public class LectureBD {
                   rolePersonnage = null;
                   realisateurId = -1;
                   roleId = -1;
-                  
+
                   genres.clear();
                   scenaristes.clear();
                   roles.clear();
-                  annonces.clear();  
+                  annonces.clear();
                   pays.clear();
                }
-               if (parser.getName().equals("role") && roleId >= 0) 
-               {              
+               if (parser.getName().equals("role") && roleId >= 0)
+               {
                   roles.add(new Role(roleId, roleNom, rolePersonnage));
                   roleId = -1;
                   roleNom = null;
                   rolePersonnage = null;
                }
             }
-            else if (eventType == XmlPullParser.TEXT && id >= 0) 
+            else if (eventType == XmlPullParser.TEXT && id >= 0)
             {
                if (tag != null)
-               {                                    
+               {
                   if (tag.equals("titre"))
                      titre = parser.getText();
                   else if (tag.equals("annee"))
@@ -229,9 +229,9 @@ public class LectureBD {
                      pays.add(parser.getText());
                   else if (tag.equals("langue"))
                      langue = parser.getText();
-                  else if (tag.equals("duree"))                 
+                  else if (tag.equals("duree"))
                      duree = Integer.parseInt(parser.getText());
-                  else if (tag.equals("resume"))                 
+                  else if (tag.equals("resume"))
                      resume = parser.getText();
                   else if (tag.equals("genre"))
                      genres.add(parser.getText());
@@ -246,21 +246,21 @@ public class LectureBD {
                   else if (tag.equals("poster"))
                      poster = parser.getText();
                   else if (tag.equals("annonce"))
-                     annonces.add(parser.getText());                  
-               }              
+                     annonces.add(parser.getText());
+               }
             }
-            
-            eventType = parser.next();            
+
+            eventType = parser.next();
          }
       }
       catch (XmlPullParserException e) {
-          System.out.println(e);   
+         System.out.println(e);
       }
       catch (IOException e) {
-         System.out.println("IOException while parsing " + nomFichier); 
+         System.out.println("IOException while parsing " + nomFichier);
       }
    }
-   
+
    public void lectureClients(String nomFichier){
       try {
          XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
@@ -269,50 +269,50 @@ public class LectureBD {
          InputStream is = new FileInputStream(nomFichier);
          parser.setInput(is, null);
 
-         int eventType = parser.getEventType();               
+         int eventType = parser.getEventType();
 
-         String tag = null, 
-                nomFamille = null,
-                prenom = null,
-                courriel = null,
-                tel = null,
-                anniv = null,
-                adresse = null,
-                ville = null,
-                province = null,
-                codePostal = null,
-                carte = null,
-                noCarte = null,
-                motDePasse = null,
-                forfait = null;                                 
-         
+         String tag = null,
+                 nomFamille = null,
+                 prenom = null,
+                 courriel = null,
+                 tel = null,
+                 anniv = null,
+                 adresse = null,
+                 ville = null,
+                 province = null,
+                 codePostal = null,
+                 carte = null,
+                 noCarte = null,
+                 motDePasse = null,
+                 forfait = null;
+
          int id = -1,
-             expMois = -1,
-             expAnnee = -1;
-         
-         while (eventType != XmlPullParser.END_DOCUMENT) 
+                 expMois = -1,
+                 expAnnee = -1;
+
+         while (eventType != XmlPullParser.END_DOCUMENT)
          {
-            if(eventType == XmlPullParser.START_TAG) 
+            if(eventType == XmlPullParser.START_TAG)
             {
                tag = parser.getName();
-               
+
                if (tag.equals("client") && parser.getAttributeCount() == 1)
                   id = Integer.parseInt(parser.getAttributeValue(0));
-            } 
-            else if (eventType == XmlPullParser.END_TAG) 
-            {                              
+            }
+            else if (eventType == XmlPullParser.END_TAG)
+            {
                tag = null;
-               
+
                if (parser.getName().equals("client") && id >= 0)
                {
                   insertionClient(id,nomFamille,prenom,courriel,tel,
-                             anniv,adresse,ville,province,
-                             codePostal,carte,noCarte, 
-                             expMois,expAnnee,motDePasse,forfait);               
-                                    
+                          anniv,adresse,ville,province,
+                          codePostal,carte,noCarte,
+                          expMois,expAnnee,motDePasse,forfait);
+
                   nomFamille = null;
                   prenom = null;
-                  courriel = null;               
+                  courriel = null;
                   tel = null;
                   anniv = null;
                   adresse = null;
@@ -321,18 +321,18 @@ public class LectureBD {
                   codePostal = null;
                   carte = null;
                   noCarte = null;
-                  motDePasse = null; 
+                  motDePasse = null;
                   forfait = null;
-                  
+
                   id = -1;
                   expMois = -1;
                   expAnnee = -1;
                }
             }
-            else if (eventType == XmlPullParser.TEXT && id >= 0) 
-            {         
+            else if (eventType == XmlPullParser.TEXT && id >= 0)
+            {
                if (tag != null)
-               {                                    
+               {
                   if (tag.equals("nom-famille"))
                      nomFamille = parser.getText();
                   else if (tag.equals("prenom"))
@@ -355,18 +355,18 @@ public class LectureBD {
                      carte = parser.getText();
                   else if (tag.equals("no"))
                      noCarte = parser.getText();
-                  else if (tag.equals("exp-mois"))                 
+                  else if (tag.equals("exp-mois"))
                      expMois = Integer.parseInt(parser.getText());
-                  else if (tag.equals("exp-annee"))                 
+                  else if (tag.equals("exp-annee"))
                      expAnnee = Integer.parseInt(parser.getText());
-                  else if (tag.equals("mot-de-passe"))                 
-                     motDePasse = parser.getText();  
-                  else if (tag.equals("forfait"))                 
-                     forfait = parser.getText(); 
-               }              
+                  else if (tag.equals("mot-de-passe"))
+                     motDePasse = parser.getText();
+                  else if (tag.equals("forfait"))
+                     forfait = parser.getText();
+               }
             }
-            
-            eventType = parser.next();            
+
+            eventType = parser.next();
          }
          try {
             if (pstmtAdresse != null) pstmtAdresse.executeBatch();
@@ -377,10 +377,10 @@ public class LectureBD {
          }
       }
       catch (XmlPullParserException e) {
-          System.out.println(e);   
+         System.out.println(e);
       }
       catch (IOException e) {
-         System.out.println("IOException while parsing " + nomFichier); 
+         System.out.println("IOException while parsing " + nomFichier);
       }
    }
 
@@ -606,13 +606,13 @@ public class LectureBD {
          System.err.println("Erreur lors de la préparation du film ID " + id + " : " + e.getMessage());
       }
    }
-   
+
    private void insertionClient(int id, String nomFamille, String prenom,
-                             String courriel, String tel, String anniv,
-                             String adresse, String ville, String province,
-                             String codePostal, String carte, String noCarte,
-                             int expMois, int expAnnee, String motDePasse,
-                             String forfait) {
+                                String courriel, String tel, String anniv,
+                                String adresse, String ville, String province,
+                                String codePostal, String carte, String noCarte,
+                                int expMois, int expAnnee, String motDePasse,
+                                String forfait) {
       try {
          // 1. Extraction du numéro civique et du nom de rue depuis l'adresse
          int numeroCivique = 0;
@@ -664,17 +664,21 @@ public class LectureBD {
          }
 
          // 4. Insertion dans la table Utilisateurs
+         String dateAnnivStr = (anniv != null && !anniv.trim().isEmpty()) ? anniv : "1970-01-01";
+
          pstmtClient.setInt(1, id);
          pstmtClient.setString(2, nomFamille);
          pstmtClient.setString(3, prenom);
-         pstmtClient.setDate(4, java.sql.Date.valueOf(anniv));
+         pstmtClient.setDate(4, java.sql.Date.valueOf(dateAnnivStr));
          pstmtClient.setString(5, courriel);
          pstmtClient.setString(6, tel);
          pstmtClient.setString(7, motDePasse);
          pstmtClient.setString(8, forfait);
+
          pstmtClient.setInt(9, numeroCivique);
          pstmtClient.setString(10, nomRue);
          pstmtClient.setString(11, codePostal);
+
          pstmtClient.addBatch();
 
          // 5. Insertion associée dans CarteDeCredit
@@ -703,7 +707,7 @@ public class LectureBD {
          System.err.println("Erreur lors de la préparation du client ID " + id + " : " + e.getMessage());
       }
    }
-   
+
    private void connectionBD() {
       try {
          // Accès au serveur
@@ -732,7 +736,9 @@ public class LectureBD {
          pstmtScenariste = connexion.prepareStatement("INSERT INTO Scenariste (personneCinemaId, filmId) VALUES (?, ?)");
 
          pstmtClient = connexion.prepareStatement(
-                 "INSERT INTO Utilisateurs (utilisateurID, nom, prenom, dateDeNaissance, courriel, telephone, motDePasse, categorieUtilisateur, codeForfait, numeroCivique, rue, codePostal) VALUES (?, ?, ?, ?, ?, ?, ?, 'CLIENT', ?, ?, ?, ?)"
+                 "INSERT INTO Utilisateurs (utilisateurID, nom, prenom, dateDeNaissance, courriel, telephone, motDePasse, categorieUtilisateur, codeForfait, adresseId) " +
+                         "VALUES (?, ?, ?, ?, ?, ?, ?, 'CLIENT', ?, " +
+                         "(SELECT adresseId FROM Adresse WHERE numeroCivique = ? AND rue = ? AND codePostal = ? FETCH FIRST 1 ROWS ONLY))"
          );
 
          pstmtCarte = connexion.prepareStatement(
